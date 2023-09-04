@@ -1,37 +1,33 @@
 const form = document.querySelector('#form')
-const name = document.querySelector('#name')
+const nameForm = document.querySelector('#name')
 const email = document.querySelector('#email')
 const cel = document.querySelector('#tel')
 const password = document.querySelector('#password')
 const btnEnviar = document.querySelector('#btn')
 
-const emailValidate = '^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-const passwordValidate = '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
-
-// form.addEventListener('submit', (e) => {
-//     if(email != emailValidate || cel != Number || password != passwordValidate){
-//         e.preventDefault()
-//         // console.log('datos invalidos')
-//     }else{
-//         // e.preventDefault()
-//         const data = Object.fromEntries(
-//             new FormData(e.target)
-//         )
-//         console.log(JSON.stringify(data))
-//     }
-// })
+const emailValidate = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const passwordValidate = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 form.addEventListener('submit', (e) => {
-    if(email != emailValidate || cel != Number() || password != passwordValidate){
-        e.preventDefault()
-        console.log('datos invalidos')
-    }else{
     e.preventDefault()
-    const data = Object.fromEntries(
-        new FormData(e.target)
-    )
-    console.log(JSON.stringify(data))
+    if(nameForm.value === "" || !emailValidate.test(email.value) || cel.value === "" || !passwordValidate.test(password.value)){
+        Swal.fire(
+            'Datos incorrectos',
+            'El correo o contraseña ingresado es incorrecto, vuelva a ingresar sus datos!',
+            'error'
+        )
+    }else{
+        const data = Object.fromEntries(
+            new FormData(e.target)
+        )
+        Swal.fire(
+            'Gracias!',
+            'El proceso se ha realizado correctamente',
+            'success'
+        )
+        console.log(JSON.stringify(data))
     }
+    
 })
 
 
